@@ -1,0 +1,7 @@
+server:
+  port: 8805
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10240MB
