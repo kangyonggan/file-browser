@@ -4,6 +4,7 @@ import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -90,8 +91,9 @@ public final class FileUtil {
      * 删除文件
      *
      * @param filePath
+     * @throws IOException
      */
-    public static void removeFile(String filePath) {
+    public static void removeFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
@@ -101,6 +103,8 @@ public final class FileUtil {
                 }
             }
         }
-        file.delete();
+        if(!file.delete()) {
+            Runtime.getRuntime().exec("rm -rf " + file.getAbsolutePath());
+        }
     }
 }
