@@ -78,4 +78,25 @@ public class IndexController {
         return resultMap;
     }
 
+    /**
+     * 删除文件/文件夹
+     *
+     * @param dir
+     * @param fileName
+     * @return
+     */
+    @DeleteMapping("removeFile")
+    public Map<String, Object> removeFile(@RequestParam String dir, @RequestParam String fileName) {
+        Map<String, Object> resultMap = new HashMap<>(4);
+        resultMap.put("respCo", "0000");
+        try {
+            FileUtil.removeFile(AppConstants.ROOT_PATH + dir + fileName);
+        } catch (Exception e) {
+            resultMap.put("respCo", "9999");
+            resultMap.put("respMsg", e.getMessage());
+        }
+
+        return resultMap;
+    }
+
 }

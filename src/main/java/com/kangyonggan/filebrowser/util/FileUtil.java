@@ -85,4 +85,22 @@ public final class FileUtil {
             file.mkdirs();
         }
     }
+
+    /**
+     * 删除文件
+     *
+     * @param filePath
+     */
+    public static void removeFile(String filePath) {
+        File file = new File(filePath);
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null && files.length > 0) {
+                for (File subFile : files) {
+                    removeFile(subFile.getAbsolutePath());
+                }
+            }
+        }
+        file.delete();
+    }
 }
